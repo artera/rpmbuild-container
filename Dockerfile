@@ -1,4 +1,4 @@
-FROM registry.centos.org/centos/centos:7
+FROM registry.centos.org/centos/centos:6
 
 RUN yum update -y && \
     yum install -y pigz createrepo rpmdevtools deltarpm rpm-sign && \
