@@ -11,14 +11,11 @@ if [ -z "$YUM_CACHE_DIR" -o ! -d "$YUM_CACHE_DIR" ]; then
     YUM_CACHE_DIR='/var/cache/yum/$basearch/$releasever'
 fi
 
-sed -r "s/^cachedir=.*/cachedir=${YUM_CACHE_DIR}/" -i /etc/yum.conf
+sed -r "s:^cachedir=.*:cachedir=${YUM_CACHE_DIR}:" -i /etc/yum.conf
 
-cd "$HOME/rpmbuild/package"
-
-mkdir -p target
-rm -f target/$NAME-*.src.rpm
+cd "/root/rpmbuild/package"
 
 spectool -g -R $NAME.spec
-rpmbuild -bs --nodeps $NAME.spec
 yum-builddep -y $NAME.spec
-rpmbuild --rebuild target/$NAME-*.src.rpm
+rpmbuild -bs $NAME.spec
+rpmbuild --rebuild $NAME.spec
