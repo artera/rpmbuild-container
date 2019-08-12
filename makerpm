@@ -13,8 +13,10 @@ if [ -z "$NAME" ]; then
     exit 1
 fi
 
-if [ -z "$YUM_CACHE_DIR" -o ! -d "$YUM_CACHE_DIR" ]; then
+if [ -z "$YUM_CACHE_DIR" ]; then
     YUM_CACHE_DIR='/var/cache/yum/$basearch/$releasever'
+else
+    mkdir -p "$YUM_CACHE_DIR"
 fi
 
 for RPMVAR in TOPDIR SPECDIR SOURCEDIR SRCRPMDIR RPMDIR; do
@@ -30,7 +32,7 @@ if [ ! -z "$MAILTO" ]; then
     echo "%_gpg_name $MAILTO" >> "$MACROSFILE"
 fi
 
-sed -r "s:^cachedir=.*:cachedir=${YUM_CACHE_DIR}:" -i "$MACROSFILE"
+sed -r "s:^cachedir=.*:cachedir=${YUM_CACHE_DIR}/\$basearch/\$releasever:" -i "$MACROSFILE"
 
 SRCRPMDIR=$(readmacro _srcrpmdir)
 SPECDIR=$(readmacro _specdir)
