@@ -1,9 +1,9 @@
 %rhel 7
 %__tar /usr/bin/tar --no-same-owner
-%_topdir /root/rpmbuild
-%_specdir /root/rpmbuild/package
-%_sourcedir /root/rpmbuild/package
-%_srcrpmdir /root/rpmbuild/target
-%_rpmdir /root/rpmbuild/target
+%_topdir /rpmbuild
+%_specdir /package
+%_sourcedir /package
+%_srcrpmdir /target
+%_rpmdir /target
 %_signature gpg
 %_gpg_name "massimiliano.torromeo@artera.net"

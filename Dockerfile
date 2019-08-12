@@ -7,13 +7,14 @@ RUN yum update -y && \
 
 COPY RPM-GPG-KEY-remi /etc/pki/mock/RPM-GPG-KEY-remi
 
-WORKDIR /root/rpmbuild/package
+WORKDIR /package
 
 RUN sed -i s/keepcache=0/keepcache=1/ /etc/yum.conf && \
-    mkdir -p /root/rpmbuild/package
+    sed -i s/enabled=1/enabled=0/ /etc/yum/pluginconf.d/fastestmirror.conf && \
+    mkdir -p /rpmbuild /target /package
 
 COPY rpmmacros /root/.rpmmacros
 COPY makerpm /usr/local/bin/makerpm
 
-LABEL RUN="podman run -it --rm --net=host -v pkg:/root/rpmbuild/package/:Z -v dist:/root/rpmbuild/target/ -v cache:/var/cache/yum IMAGE"
+LABEL RUN="podman run -it --rm --net=host -v pkg:/package/:Z -v dist:/target/ -v cache:/var/cache/yum IMAGE"
 ENTRYPOINT ["/usr/local/bin/makerpm"]

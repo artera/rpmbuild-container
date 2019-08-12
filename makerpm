@@ -1,6 +1,12 @@
 #!/bin/bash -e
 
 NAME=$1
+MACROSFILE=/root/.rpmmacros
+
+readmacro() {
+    local NAME="$1"
+    awk '{if ($1 == "%'$NAME'") {for (i=2; i<NF; i++) printf $i " "; print $NF}}' "$MACROSFILE"
+}
 
 if [ -z "$NAME" ]; then
     echo "Usage: $0 PACKAGE_NAME"
@@ -11,11 +17,27 @@ if [ -z "$YUM_CACHE_DIR" -o ! -d "$YUM_CACHE_DIR" ]; then
     YUM_CACHE_DIR='/var/cache/yum/$basearch/$releasever'
 fi
 
-sed -r "s:^cachedir=.*:cachedir=${YUM_CACHE_DIR}:" -i /etc/yum.conf
+for RPMVAR in TOPDIR SPECDIR SOURCEDIR SRCRPMDIR RPMDIR; do
+    VALUE="${!RPMVAR}"
+    [ -z "$VALUE" ] && continue
+    RPMVAR=${RPMVAR,,} # lowercase
+    sed "/^%_$RPMVAR /d" -i "$MACROSFILE"
+    echo "%_$RPMVAR $VALUE" >> "$MACROSFILE"
+done
 
-cd "/root/rpmbuild/package"
+if [ ! -z "$MAILTO" ]; then
+    sed "/^%_gpg_name /d" -i "$MACROSFILE"
+    echo "%_gpg_name $MAILTO" >> "$MACROSFILE"
+fi
 
-spectool -g -R $NAME.spec
-yum-builddep -y $NAME.spec
-rpmbuild -bs $NAME.spec
-rpmbuild --rebuild /root/rpmbuild/target/$NAME-*.src.rpm
+sed -r "s:^cachedir=.*:cachedir=${YUM_CACHE_DIR}:" -i "$MACROSFILE"
+
+SRCRPMDIR=$(readmacro _srcrpmdir)
+SPECDIR=$(readmacro _specdir)
+
+cd "$SPECDIR"
+
+spectool -g -R "$NAME.spec"
+yum-builddep -y "$NAME.spec"
+rpmbuild -bs "$NAME.spec"
+rpmbuild -D '_sourcedir /tmp' -D '_specdir /tmp' --rebuild "$SRCRPMDIR/$NAME"-*.src.rpm
