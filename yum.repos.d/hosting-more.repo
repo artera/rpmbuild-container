@@ -1,0 +1,6 @@
+[hosting-more]
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/mtorromeo/hosting-more/pubkey.gpg
+enabled=1
+baseurl=https://copr-be.cloud.fedoraproject.org/results/mtorromeo/hosting-more/epel-$releasever-$basearch/
+name=Copr repo for hosting-more

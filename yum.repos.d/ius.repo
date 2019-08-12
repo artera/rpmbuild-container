@@ -1,0 +1,6 @@
+[ius]
+gpgcheck=1
+gpgkey=https://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-GPG-KEY
+enabled=1
+name=IUS Community Packages for Enterprise Linux $releasever - $basearch
+mirrorlist=https://mirrors.iuscommunity.org/mirrorlist?repo=ius-centos$releasever&arch=$basearch&protocol=http
