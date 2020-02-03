@@ -1,0 +1,44 @@
+#!/bin/bash -e
+
+NAME="$(basename "$0")"
+
+if [ "$NAME" = "podman-rpmtools" -o "$NAME" = "rpmtools" ]; then
+    if [ -z "$1" ]; then
+        NAME=bash
+    else
+        NAME="$1"
+        if [ "$NAME" = "setup" ]; then
+            BINDIR="$HOME/.local/bin"
+            RPMTOOLS=$(realpath --relative-to="$BINDIR" "$0")
+            mkdir -p "$BINDIR"
+            cd "$BINDIR"
+            for bin in rpmdev-{bumpspec,checksig,cksum,diff,extract,md5,newinit,newspec,packager{,-rmdevelrpms},rmdevelrpms,setuptree,sha{1,224,256,384,512},sort,sum,vercmp,wipetree} rpminfo rpmlint rpmsign rpmspec rpmverify spectool; do
+                ln -sf "$RPMTOOLS" $bin
+            done
+            exit
+        fi
+        shift
+    fi
+fi
+
+if [ "$NAME" = "podman-rpmtools" ]; then
+    NAME=bash
+fi
+
+CACHEDIR="$HOME/.cache/yum"
+MAILTO=${MAILTO:-$(git config --global user.email)}
+
+mkdir -p "$CACHEDIR"
+
+podman run -it --rm --net=host \
+    -v "/home/:/home/" \
+    -v "/mnt/:/mnt/" \
+    -v "$CACHEDIR:/var/cache/yum" \
+    -e "HOME=$HOME" \
+    -e "USER=$USER" \
+    -e "MAILTO=$MAILTO" \
+    -e "RPM_PACKAGER=${RPM_PACKAGER:-"$(git config --global user.name) <$MAILTO>"}" \
+    --workdir "$PWD" \
+    --entrypoint "$NAME" \
+    artera/rpmbuild \
+    "$@"
