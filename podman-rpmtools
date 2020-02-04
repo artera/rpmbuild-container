@@ -12,7 +12,7 @@ if [ "$NAME" = "podman-rpmtools" -o "$NAME" = "rpmtools" ]; then
             RPMTOOLS=$(realpath --relative-to="$BINDIR" "$0")
             mkdir -p "$BINDIR"
             cd "$BINDIR"
-            for bin in rpmdev-{bumpspec,checksig,cksum,diff,extract,md5,newinit,newspec,packager{,-rmdevelrpms},rmdevelrpms,setuptree,sha{1,224,256,384,512},sort,sum,vercmp,wipetree} rpminfo rpmlint rpmsign rpmspec rpmverify spectool; do
+            for bin in rpmtools rpmdev-{bumpspec,checksig,cksum,diff,extract,md5,newinit,newspec,packager{,-rmdevelrpms},rmdevelrpms,setuptree,sha{1,224,256,384,512},sort,sum,vercmp,wipetree} rpminfo rpmlint rpmsign rpmspec rpmverify spectool; do
                 ln -sf "$RPMTOOLS" $bin
             done
             exit

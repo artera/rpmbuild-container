@@ -1,7 +1,7 @@
 FROM registry.centos.org/centos/centos:7
 
 RUN yum update -y && \
-    yum install -y pigz createrepo rpmdevtools deltarpm rpm-sign rpmlint which && \
+    yum install -y pigz createrepo rpmdevtools deltarpm rpm-sign rpmlint which redhat-lsb-core && \
     yum groupinstall -y 'Development Tools' && \
     yum clean all
 
