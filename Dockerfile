@@ -1,7 +1,7 @@
 FROM registry.centos.org/centos/centos:8
 
 RUN dnf update -y && \
-    dnf install -y pigz createrepo rpmdevtools rpm-sign rpmlint which redhat-lsb-core && \
+    dnf install -y pigz createrepo rpmdevtools rpm-sign rpmlint which redhat-lsb-core yum-utils && \
     dnf groupinstall -y 'Development Tools' && \
     dnf clean all
 
