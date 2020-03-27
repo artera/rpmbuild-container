@@ -40,5 +40,5 @@ podman run -it --rm --net=host \
     -e "RPM_PACKAGER=${RPM_PACKAGER:-"$(git config --global user.name) <$MAILTO>"}" \
     --workdir "$PWD" \
     --entrypoint "$NAME" \
-    artera/rpmbuild \
+    artera/rpmbuild:${RPMTOOLSREL:-latest} \
     "$@"
