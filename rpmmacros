@@ -1,5 +1,5 @@
 %rhel 6
-%__tar /usr/bin/tar --no-same-owner
+%__tar /bin/tar --no-same-owner
 %_topdir /rpmbuild
 %_specdir /package
 %_sourcedir /package
