@@ -1,4 +1,4 @@
-%rhel 7
+%rhel 8
 %__tar /usr/bin/tar --no-same-owner
 %_topdir /rpmbuild
 %_specdir /package
