@@ -1,0 +1,6 @@
+[nginx-modules-el$releasever]
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/mtorromeo/nginx-modules-el$releasever/pubkey.gpg
+enabled=1
+baseurl=https://copr-be.cloud.fedoraproject.org/results/mtorromeo/nginx-modules-el$releasever/epel-$releasever-$basearch/
+name=Copr repo for nginx-modules-el$releasever
