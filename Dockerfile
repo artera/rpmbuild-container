@@ -7,7 +7,7 @@ RUN dnf update -y && \
 
 WORKDIR /package
 
-RUN echo keepcache=1 >> /etc/dnf.conf && \
+RUN echo keepcache=1 >> /etc/dnf/dnf.conf && \
     mkdir -p /rpmbuild /target /package && \
     curl https://sh.rustup.rs -sSf | sh -s -- -y && \
     cp -a /root/.cargo/env /etc/profile.d/cargo.sh
