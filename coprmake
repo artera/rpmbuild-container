@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+spec=$1
+
+if [ -z "$spec" ]; then
+    echo "Usage: $0 SPECFILE"
+    exit 1
+fi
+
+cd /package
+make -f .copr/Makefile spec="$spec" outdir=/target prepare
+yum-builddep -y "$spec"
+make -f .copr/Makefile spec="$spec" outdir=/target rpm

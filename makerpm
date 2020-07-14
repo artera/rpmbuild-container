@@ -42,4 +42,4 @@ cd "$SPECDIR"
 spectool -g -R "$NAME.spec"
 yum-builddep -y "$NAME.spec"
 rpmbuild -bs "$NAME.spec"
-rpmbuild -D '_sourcedir /tmp' -D '_specdir /tmp' --rebuild "$SRCRPMDIR/$NAME"-*.src.rpm
+rpmbuild --rebuild "$SRCRPMDIR/$NAME"-*.src.rpm

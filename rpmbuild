@@ -1,0 +1,3 @@
+#!/bin/bash -e
+# rpmbuild wrapper with additional defines
+exec /usr/bin/rpmbuild -D '_sourcedir /tmp' -D '_specdir /tmp' "$@"
