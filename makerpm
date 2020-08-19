@@ -41,5 +41,5 @@ cd "$SPECDIR"
 
 spectool -g -R "$NAME.spec"
 yum-builddep -y "$NAME.spec"
-rpmbuild -bs "$NAME.spec"
-rpmbuild --rebuild "$SRCRPMDIR/$NAME"-*.src.rpm
+/usr/bin/rpmbuild -bs "$NAME.spec"
+/usr/bin/rpmbuild --rebuild "$SRCRPMDIR/$NAME"-*.src.rpm
