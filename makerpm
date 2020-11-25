@@ -13,6 +13,10 @@ if [ -z "$NAME" ]; then
     exit 1
 fi
 
+if [ -d /rpms ]; then
+    yum install -y /rpms/*.rpm
+fi
+
 if [ -z "$YUM_CACHE_DIR" ]; then
     YUM_CACHE_DIR='/var/cache/yum/$basearch/$releasever'
 else

@@ -7,6 +7,10 @@ if [ -z "$spec" ]; then
     exit 1
 fi
 
+if [ -d /rpms ]; then
+    yum install -y /rpms/*.rpm
+fi
+
 cd /package
 make -f .copr/Makefile spec="$spec" outdir=/target prepare
 yum-builddep -y "$spec"

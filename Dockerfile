@@ -1,7 +1,7 @@
 FROM registry.centos.org/centos/centos:7
 
 RUN yum update -y && \
-    yum install -y pigz createrepo rpmdevtools deltarpm rpm-sign rpmlint which redhat-lsb-core && \
+    yum install -y pigz createrepo rpmdevtools deltarpm rpm-sign rpmlint which redhat-lsb-core @buildsys-build && \
     yum groupinstall -y 'Development Tools' && \
     yum clean all
 
@@ -21,5 +21,5 @@ COPY rpmbuild /usr/local/bin/rpmbuild
 
 RUN ln -s /usr/bin/yum /usr/bin/dnf
 
-LABEL RUN="podman run -it --rm --net=host -v pkg:/package/:Z -v dist:/target/ -v cache:/var/cache/yum IMAGE"
+LABEL RUN="podman run -it --rm --net=host -v pkg:/rpms/:Z -v pkg:/package/:Z -v dist:/target/ -v cache:/var/cache/yum IMAGE"
 ENTRYPOINT ["/usr/local/bin/makerpm"]
