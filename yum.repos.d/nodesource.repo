@@ -1,6 +1,6 @@
 [nodesource]
 name=Node.js Packages for Enterprise Linux $releasever - $basearch
-baseurl=https://rpm.nodesource.com/pub_10.x/el/$releasever/$basearch
+baseurl=https://rpm.nodesource.com/pub_14.x/el/$releasever/$basearch
 failovermethod=priority
 enabled=1
 gpgcheck=1

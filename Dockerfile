@@ -1,6 +1,7 @@
-FROM registry.centos.org/centos/centos:8
+FROM almalinux/almalinux:8
 
-RUN dnf update -y && \
+RUN dnf install -y https://mirror.23media.com/remi/enterprise/remi-release-8.rpm && \
+    dnf update -y && \
     dnf install -y pigz createrepo rpmdevtools rpm-sign rpmlint which redhat-lsb-core yum-utils && \
     dnf groupinstall -y 'Development Tools' && \
     dnf clean all
