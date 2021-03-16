@@ -1,6 +1,8 @@
 FROM registry.centos.org/centos/centos:7
 
-RUN yum install -y https://mirror.23media.com/remi/enterprise/remi-release-7.rpm && \
+RUN yum install -y \
+        https://mirror.23media.com/remi/enterprise/remi-release-7.rpm \
+        https://rpm.nodesource.com/pub_14.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm && \
     yum update -y && \
     yum install -y pigz createrepo rpmdevtools deltarpm rpm-sign rpmlint which redhat-lsb-core @buildsys-build && \
     yum groupinstall -y 'Development Tools' && \
