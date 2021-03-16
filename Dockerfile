@@ -1,6 +1,8 @@
 FROM almalinux/almalinux:8
 
-RUN dnf install -y https://mirror.23media.com/remi/enterprise/remi-release-8.rpm && \
+RUN dnf install -y \
+        https://mirror.23media.com/remi/enterprise/remi-release-8.rpm \
+        https://rpm.nodesource.com/pub_14.x/el/8/x86_64/nodesource-release-el8-1.noarch.rpm && \
     dnf update -y && \
     dnf install -y pigz createrepo rpmdevtools rpm-sign rpmlint which redhat-lsb-core yum-utils && \
     dnf groupinstall -y 'Development Tools' && \
