@@ -18,9 +18,7 @@ RUN sed -i s/keepcache=0/keepcache=1/ /etc/yum.conf && \
 
 COPY yum.repos.d/ /etc/yum.repos.d/
 COPY rpmmacros /root/.rpmmacros
-COPY makerpm /usr/local/bin/makerpm
-COPY coprmake /usr/local/bin/coprmake
-COPY rpmbuild /usr/local/bin/rpmbuild
+COPY bin/ /usr/local/bin/
 
 RUN ln -s /usr/bin/yum /usr/bin/dnf
 
