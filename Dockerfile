@@ -17,9 +17,7 @@ RUN echo keepcache=1 >> /etc/dnf/dnf.conf && \
 
 COPY yum.repos.d/ /etc/yum.repos.d/
 COPY rpmmacros /root/.rpmmacros
-COPY makerpm /usr/local/bin/makerpm
-COPY coprmake /usr/local/bin/coprmake
-COPY rpmbuild /usr/local/bin/rpmbuild
+COPY bin/ /usr/local/bin/
 
 LABEL RUN="podman run -it --rm --net=host -v pkg:/package/:Z -v dist:/target/ -v cache:/var/cache/dnf IMAGE"
 ENTRYPOINT ["/usr/local/bin/makerpm"]
