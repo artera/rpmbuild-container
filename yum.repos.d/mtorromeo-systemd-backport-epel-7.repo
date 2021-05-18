@@ -1,0 +1,10 @@
+[copr:copr.fedorainfracloud.org:mtorromeo:systemd-backport]
+name=Copr repo for systemd-backport owned by mtorromeo
+baseurl=https://download.copr.fedorainfracloud.org/results/mtorromeo/systemd-backport/epel-7-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/mtorromeo/systemd-backport/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
